@@ -70,3 +70,26 @@ function handleSearch() {
                 displayForecast(data);
 
               
+  // Add the city to the search history
+                const searchHistoryElement = document.getElementById('search-history');
+                const searchHistoryItem = document.createElement('button');
+                searchHistoryItem.innerText = city;
+                searchHistoryItem.addEventListener('click', () => handleHistoryItemClick(city));
+                searchHistoryElement.appendChild(searchHistoryItem);
+            })
+            .catch(error => {
+                console.error('Error fetching weather data:', error);
+                alert('City not found. Please enter a valid city name.');
+            });
+    }
+}
+
+// Function to handle the click on a city in the search history
+function handleHistoryItemClick(city) {
+    // Re-fetch weather data for the clicked city
+    handleSearch();
+}
+
+// Event listener for the search button
+const searchButton = document.getElementById('search-button');
+searchButton.addEventListener('click', handleSearch);
